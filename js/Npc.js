@@ -8,20 +8,36 @@ export default class Npc extends Phaser.Physics.Matter.Sprite{
         var NpcCollider = Bodies.circle(this.x,this.y,18,{isSensor:false, label:'NpcCollider'});
         var NpcerSensor = Bodies.circle(this.x,this.y,25, {isSensor:true, lable:'NpcerSensor'});
         const compoundBody = Body.create({
-            parts:[NpcCollider,NpcerSensor],frictionAir: 0.35,
+            parts:[NpcCollider,NpcerSensor],frictionAir: 0.35
         });
         this.setExistingBody(compoundBody);
         this.setFixedRotation();
+        
     }
 
-    create(){//สร้างข้อมูล
+
+    static preload(scene){
+        scene.load.atlas('archer','assets/images/npc/archer.png','assets/images/npc/archer_atlas.json');
+        scene.load.animation('archer_anim','assets/images/npc/archer_anim.json');
     }
 
-    preload(){
+    get velocity(){
+        return this.body.velocity;
     }
 
 
     update(){
-
+        const speed = 1.5;//ความเร็วการเดิน
+        let npcVelocity = new Phaser.Math.Vector2();//ทิศทางการเดิน,ความเร็ว
+        
+        npcVelocity.normalize();//ให้ตัวละครเดินอย่างสมูท
+        npcVelocity.scale(speed);
+        
+        
+        if(Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1){
+            this.anims.play('walk',true);//นำเข้ารูปตัวผู้เล่นเดิน
+        }else{
+            this.anims.play('idle',true);//นำเข้ารูปตัวผู้เล่นยืนนิ่ง
+        }
     }
 }

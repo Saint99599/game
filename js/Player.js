@@ -8,15 +8,19 @@ export default class Player extends Phaser.Physics.Matter.Sprite{
         var playerCollider = Bodies.circle(this.x,this.y,18,{isSensor:false, label:'playerCollider'});
         var playerSensor = Bodies.circle(this.x,this.y,25, {isSensor:true, lable:'playerSensor'});
         const compoundBody = Body.create({
-            parts:[playerCollider,playerSensor],frictionAir: 0.35,
+            parts:[playerCollider,playerSensor],frictionAir: 0.35
         });
         this.setExistingBody(compoundBody);
         this.setFixedRotation();
     }
 
     static preload(scene){
-        scene.load.atlas('blacksmith','assets/images/blacksmith.png','assets/images/blacksmith_atlas.json');
-        scene.load.animation('blacksmith_anim','assets/images/blacksmith_anim.json');
+        scene.load.atlas('blacksmith','assets/images/player/blacksmith.png','assets/images/player/blacksmith_atlas.json');
+        scene.load.animation('blacksmith_anim','assets/images/player/blacksmith_anim.json');
+    }
+
+    create(){
+        scene.setScale(2);
     }
 
     get velocity(){
@@ -46,6 +50,6 @@ export default class Player extends Phaser.Physics.Matter.Sprite{
         }else{
             this.anims.play('blacksmith_idle',true);//นำเข้ารูปตัวผู้เล่นยืนนิ่ง
         }
-        
+ 
     }
 }

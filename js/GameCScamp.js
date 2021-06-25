@@ -1,14 +1,15 @@
 import MainScene from "./MainScene.js";
 
 const config = {
-    width : 512,
-    height : 512,
+    width : 800,
+    height : 736,
     backgroundColor : '#999999',
     type : Phaser.AUTO,
     parent : 'GameCScamp',
     scene : [MainScene],
     scale : {
-        zoom : 2,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
     },
     physics : {
         default : 'matter',
