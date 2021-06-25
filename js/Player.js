@@ -41,6 +41,10 @@ export default class Player extends Phaser.Physics.Matter.Sprite{
             playerVelocity.y = 1;
         }
 
+        if(this.inputKeys.enter.isDown){
+            console.log("ass")
+        }
+
         playerVelocity.normalize();//ให้ตัวละครเดินอย่างสมูท
         playerVelocity.scale(speed);
         this.setVelocity(playerVelocity.x,playerVelocity.y);

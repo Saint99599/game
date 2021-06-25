@@ -12,7 +12,6 @@ export default class Npc extends Phaser.Physics.Matter.Sprite{
         });
         this.setExistingBody(compoundBody);
         this.setFixedRotation();
-        
     }
 
 
@@ -29,11 +28,8 @@ export default class Npc extends Phaser.Physics.Matter.Sprite{
     update(){
         const speed = 1.5;//ความเร็วการเดิน
         let npcVelocity = new Phaser.Math.Vector2();//ทิศทางการเดิน,ความเร็ว
-        
         npcVelocity.normalize();//ให้ตัวละครเดินอย่างสมูท
         npcVelocity.scale(speed);
-        
-        
         if(Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1){
             this.anims.play('walk',true);//นำเข้ารูปตัวผู้เล่นเดิน
         }else{
