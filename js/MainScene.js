@@ -15,15 +15,32 @@ export default class MainScene extends Phaser.Scene {
     }
     
     create(){//สร้างข้อมูล
-        this.tomato;
-        this.tomatoLayer;
-        this.tomatonum = 0;
+        /*let tomatoLayer;
+        let tomato;
+        let tomatoNum = 0;*/
 
-        this.pumpkin;
+        //tomato
+        /*this.tomato = this.physics.add.Group()
+        tomatoLayer.forEach(object => {
+        let obj = tomato.create(object.x, object.y, "coin"); 
+            obj.setScale(object.width/16, object.height/16); 
+            obj.setOrigin(0); 
+            obj.body.width = object.width; 
+            obj.body.height = object.height; 
+        });
 
-        this.cauliflower;
+        //collisons
+        map.setCollisionBetween(0, 923, true, 'ground');
+        this.player.setCollideWorldBounds(true);
+        this.physics.add.collider(player, ground);
+        this.physics.add.overlap(player, tomato, collecttomato, null, this);
 
-        this.carrot;
+        //score
+        text = this.add.text(570, 70, `Coins: ${tomatoNum}x`, {
+        fontSize: '20px',
+        fill: '#ffffff'
+        });
+        text.setScrollFactor(0);*/
 
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('map-rpg','maprpg',32,32,0,0);
@@ -35,7 +52,7 @@ export default class MainScene extends Phaser.Scene {
         const vegetableplot02 = map.createStaticLayer('vegetableplot02',tileset,0,0);
         const vegetableplot03 = map.createStaticLayer('vegetableplot03',tileset,0,0);
         const vegetableplot04 = map.createStaticLayer('vegetableplot04',tileset,0,0);
-        this.tomatoLayer = map.getObjectLayer('tomatoLayer')['objects'];
+        //this.tomatoLayer = map.getObjectLayer('tomatoLayer')['objects'];
         /*const pumpkin = map.createStaticLayer('pumpkin',maphomeset,0,0);
         const cauliflower = map.createStaticLayer('cauliflower',maphomeset,0,0);
         const carrot = map.createStaticLayer('carrot',maphomeset,0,0);*/
@@ -48,11 +65,7 @@ export default class MainScene extends Phaser.Scene {
         vegetableplot04.setCollisionByProperty({collides:true});
         this.matter.world.convertTilemapLayer(forest);
         this.matter.world.convertTilemapLayer(home01);
-        this.matter.world.convertTilemapLayer(vegetableplot01);
-        this.matter.world.convertTilemapLayer(vegetableplot02);
-        this.matter.world.convertTilemapLayer(vegetableplot03);
-        this.matter.world.convertTilemapLayer(vegetableplot04);
-
+    
         this.player = new Player({scene:this,x:615,y:220,texture:'blacksmith',frame:'townsfolk_f_idle_1'});//
         this.player.setScale(1.5);
 
@@ -65,6 +78,8 @@ export default class MainScene extends Phaser.Scene {
             right : Phaser.Input.Keyboard.KeyCodes.D,
             enter : Phaser.Input.Keyboard.KeyCodes.ENTER,
         })
+        
+        
     }
     
     update(){
@@ -80,22 +95,16 @@ export default class MainScene extends Phaser.Scene {
                 this.ready_to_talk();
             }
         }
-        /*if((Math.abs(vegetableplot01 - this.player.x) <= 50) & ((Math.abs(vegetableplot01 - this.player.y) <= 50))){
-            if(this.player.inputKeys.enter.isDown){
-                console.log("Complete vegetableplot01")
-                this.ready_to_talk();
-            }
-        }*/
+        
     }
     ready_to_talk(){
         var text = this.add.text(this.Npc.x, this.Npc.y + 25, 'test', {font: '15px Courier', fill: ' #000000'})
         text.setOrigin(0.5);
     }
-    collecttomato(player,tomato){
-        this.tomato.destroy(tomato.x, tomato.y); // remove the tile/tomato
-        this.tomatonum ++; // increment the score
-        text.setText(`tomato: ${tomatoScore}x`); // set the text to show the current score
+    /*collecttomato(player, tomato) {
+        tomato.destroy(tomato.x, tomato.y); // remove the tile/coin
+        tomatoNum ++; // increment the score
+        text.setText(`tomato: ${tomatoNum}x`); // set the text to show the current score
         return false;
-    }
-   
+    }*/
 }
